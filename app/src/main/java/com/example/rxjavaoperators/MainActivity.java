@@ -99,105 +99,21 @@ private Disposable disposable;
         take.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Observable
-                        .range(1, 10)
-                        .take(4)
-                        .subscribe(new Observer<Integer>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                Log.d("TAG", "Subscribed");
-                            }
-
-                            @Override
-                            public void onNext(Integer integer) {
-                                Log.d("TAG", "onNext: " + integer);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                Log.d("TAG", "Completed");
-                            }
-                        });
+                gettakedata();
             }
         });
         buffer.setOnClickListener(new View.OnClickListener() {
             //Buffering operator allows to gather items emitted by an Observable into a list or bundles and emit those bundles instead of items
             @Override
             public void onClick(View view) {
-                Observable<Integer> observable = Observable.just(1, 2, 3, 4,
-                        5, 6, 7, 8, 9);
-
-                observable.subscribeOn(Schedulers.io())
-                        .delay(2, TimeUnit.SECONDS, Schedulers.io())
-                        .buffer(3)
-                        .subscribe(new Observer<List<Integer>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                System.out.println("Subscribed");
-                            }
-                            @Override
-                            public void onNext(List<Integer> integers) {
-                                System.out.println("onNext: ");
-                                for (Integer value : integers) {
-                                    System.out.println(value);
-                                }
-                            }
-                            @Override
-                            public void onError(Throwable e) {
-                                System.out.println("Error");
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                System.out.println("Done! ");
-                            }
-                        });
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+                getbufferdata();
             }
         });
 
         reduce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Observable
-                        .range(1, 10)
-                        .reduce(new BiFunction<Integer, Integer, Integer>() {
-                            @Override
-                            public Integer apply(Integer number, Integer sum) throws Exception {
-                                return sum + number;
-                            }
-                        })
-                        .subscribe(new MaybeObserver<Integer>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposable = d;
-                            }
-
-                            @Override
-                            public void onSuccess(Integer integer) {
-                                Log.e("TAG", "Sum of numbers from 1 - 10 is: " + integer);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                Log.e("TAG", "onError: " + e.getMessage());
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                Log.e("TAG", "onComplete");
-                            }
-                        });
+                getreducedata();
             }
         });
 
@@ -237,7 +153,7 @@ private Disposable disposable;
 
                   @Override
                   public void onNext(User user) {
-                      Log.e("TAG", user.getName() + ", " + user.getGender());
+                      Log.e("concat", user.getName() + ", " + user.getGender());
                   }
 
                   @Override
@@ -323,7 +239,7 @@ private Disposable disposable;
 
                     @Override
                     public void onNext(Integer integer) {
-                        Log.d("TAG", "onNext: " + integer);
+                        Log.d("distinct", "onNext: " + integer);
                     }
 
                     @Override
@@ -407,6 +323,98 @@ private Disposable disposable;
                     }
                 }).subscribeOn(Schedulers.io());
     }
+     private void getbufferdata(){
+         Observable<Integer> observable = Observable.just(1, 2, 3, 4,
+                 5, 6, 7, 8, 9);
+
+         observable.subscribeOn(Schedulers.io())
+                 .delay(2, TimeUnit.SECONDS, Schedulers.io())
+                 .buffer(3)
+                 .subscribe(new Observer<List<Integer>>() {
+                     @Override
+                     public void onSubscribe(Disposable d) {
+                         System.out.println("Subscribed");
+                     }
+                     @Override
+                     public void onNext(List<Integer> integers) {
+                         System.out.println("buffer onNext: ");
+                         for (Integer value : integers) {
+                             System.out.println(value);
+                         }
+                     }
+                     @Override
+                     public void onError(Throwable e) {
+                         System.out.println("Error");
+                     }
+
+                     @Override
+                     public void onComplete() {
+                         System.out.println("Done! ");
+                     }
+                 });
+         try {
+             Thread.sleep(3000);
+         } catch (InterruptedException e) {
+             e.printStackTrace();
+         }
+     }
+
+     private void gettakedata(){
+         Observable.range(1, 10)
+                 .take(4)
+                 .subscribe(new Observer<Integer>() {
+                     @Override
+                     public void onSubscribe(Disposable d) {
+                         Log.d("take ", "Subscribed");
+                     }
+
+                     @Override
+                     public void onNext(Integer integer) {
+                         Log.d("take ", "onNext: " + integer);
+                     }
+
+                     @Override
+                     public void onError(Throwable e) {
+
+                     }
+
+                     @Override
+                     public void onComplete() {
+                         Log.d("take", "Completed");
+                     }
+                 });
+     }
+     private void getreducedata(){
+         Observable
+                 .range(1, 10)
+                 .reduce(new BiFunction<Integer, Integer, Integer>() {
+                     @Override
+                     public Integer apply(Integer number, Integer sum) throws Exception {
+                         return sum + number;
+                     }
+                 })
+                 .subscribe(new MaybeObserver<Integer>() {
+                     @Override
+                     public void onSubscribe(Disposable d) {
+                         disposable = d;
+                     }
+
+                     @Override
+                     public void onSuccess(Integer integer) {
+                         Log.e("TAG", "Sum of numbers from 1 - 10 is: " + integer);
+                     }
+
+                     @Override
+                     public void onError(Throwable e) {
+                         Log.e("TAG", "onError: " + e.getMessage());
+                     }
+
+                     @Override
+                     public void onComplete() {
+                         Log.e("TAG", "onComplete");
+                     }
+                 });
+     }
 
     @Override
     protected void onDestroy() {
