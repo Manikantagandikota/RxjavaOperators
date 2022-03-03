@@ -5,6 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        tools:ignore="MissingClass">
 <android.support.v7.widget.LinearLayoutCompat
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -82,5 +86,61 @@
         android:layout_marginTop="15dp"
         android:id="@+id/filter"
         />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        android:text="Switchmap"
+        android:textColor="@color/white"
+        android:layout_marginTop="15dp"
+        android:id="@+id/Switchmap"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        android:text="Takewhile"
+        android:textColor="@color/white"
+        android:layout_marginTop="15dp"
+        android:id="@+id/takewhile"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        android:text="skipwhile"
+        android:textColor="@color/white"
+        android:layout_marginTop="15dp"
+        android:id="@+id/skipwhile"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        android:text="sample"
+        android:textColor="@color/white"
+        android:layout_marginTop="15dp"
+        android:id="@+id/sample"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        android:text="ignoreElements"
+        android:textColor="@color/white"
+        android:layout_marginTop="15dp"
+        android:id="@+id/ignoreElements"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        android:text="Join"
+        android:textColor="@color/white"
+        android:layout_marginTop="15dp"
+        android:id="@+id/join"
+        />
+
 </android.support.v7.widget.LinearLayoutCompat>
+    </android.support.v4.widget.NestedScrollView>
 </android.support.v7.widget.LinearLayoutCompat>
